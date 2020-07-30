@@ -7,7 +7,7 @@ var myBall_xVel = 1, myBall_yVel = 1;
 var myBall_top = myBall_yPos - ballSize/2,
  myBall_bottom = myBall_yPos + ballSize/2, 
  myBall_left = myBall_xPos - ballSize/2,
-  myBall_right = myBall_xPos + ballSize/2;
+ myBall_right = myBall_xPos + ballSize/2;
 var r = 0, g = 0, b = 0;
 
 function setup() {
@@ -15,42 +15,41 @@ function setup() {
   background(color(0,0,100));
   rectMode(CENTER);
   myBall = rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
-//console.log(myBall);
+ //console.log(myBall);
+ myBall_xVel = random(-4,4);
+ myBall_yPos = random(-4,4);
 }
 
 function draw() {
  background(color(0,0,100));
 
  moveAndBounce();
- switchTheColor();
-// this makes the ball appear
-rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
+ 
+ // this makes the ball appear
+ rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
 }
 
 function moveAndBounce(){
 	myBall_xPos  = myBall_xPos + myBall_xVel;
 	myBall_left  = myBall_xPos - ballSize/2;
 	myBall_right = myBall_xPos + ballSize/2;
- // rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
-  if (myBall_xPos > canvasWidth){
-    myBall_xVel = -1;
-  }else if (myBall_xPos < 0){
-  myBall_xVel = 1;
-}
+  if ((myBall_xPos > canvasWidth) || (myBall_xPos < 0)){
+    myBall_xVel = -myBall_xVel;
+    switchTheColor();
+  }
 
 	myBall_yPos  = myBall_yPos + myBall_yVel;
 	myBall_left  = myBall_yPos - ballSize/2;
 	myBall_right = myBall_yPos + ballSize/2;
-// this makes the ball go back and forth vertical
-  if (myBall_yPos > canvasHeight){
-    myBall_yVel = -1;
-  }else if (myBall_yPos < 0){
-  myBall_yVel = 1;
-}
+ // this makes the ball go back and forth vertical
+  if ((myBall_yPos > canvasHeight) || (myBall_yPos < 0)){
+    myBall_yVel = -myBall_yVel;
+    switchTheColor();
+  }
 }
 
 function switchTheColor(){
-r = random(255);
-g = random(255);
-b = random(255);
+ r = random(255);
+ g = random(255);
+ b = random(255);
 }
