@@ -5,9 +5,9 @@ console.log(ballSize)
 var myBall_xPos = canvasWidth/2, myBall_yPos = canvasHeight/2;
 var myBall_xVel = 1, myBall_yVel = 1;
 var myBall_top = myBall_yPos - ballSize/2,
- myBall_bottom = myBall_yPos + ballSize/2, 
- myBall_left = myBall_xPos - ballSize/2,
- myBall_right = myBall_xPos + ballSize/2;
+    myBall_bottom = myBall_yPos + ballSize/2, 
+    myBall_left = myBall_xPos - ballSize/2,
+    myBall_right = myBall_xPos + ballSize/2;
 var r = 0, g = 0, b = 0;
 
 function setup() {
@@ -22,9 +22,7 @@ function setup() {
 
 function draw() {
  background(color(0,0,100));
-
  moveAndBounce();
- 
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
 }
