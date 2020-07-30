@@ -21,7 +21,7 @@ function setup() {
 }
 
 function draw() {
- background(color(0,0,100));
+ background(color(r, g, b));
  moveAndBounce();
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
