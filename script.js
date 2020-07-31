@@ -66,7 +66,7 @@ function paddleControl(){
    // Update Values
   // If the p is pressed, 
   // move the paddle up on the screen
-if (key === "p" )&& (paddleL_top > 0) {
+if (key === "p" ) && (paddleL_top > 0) {
  paddleR_yPos = paddleR_yPos - 5;
  }
   // Update Values
@@ -97,6 +97,5 @@ if (myBall_yPos === paddleR_yPos || myBall_yPos === paddleL_yPos){
 function score(){
   text("score");
   fill(65);
-  
 }
 
