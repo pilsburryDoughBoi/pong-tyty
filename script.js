@@ -8,7 +8,10 @@ var myBall_top = myBall_yPos - ballSize/2,
     myBall_bottom = myBall_yPos + ballSize/2, 
     myBall_left = myBall_xPos - ballSize/2,
     myBall_right = myBall_xPos + ballSize/2;
+
+var paddleSizeWidth = 9, paddleSizHeight = 16    
 var r = 0, g = 0, b = 0;
+
 
 function setup() {
 	createCanvas(canvasWidth, canvasHeight);
@@ -18,10 +21,13 @@ function setup() {
  //console.log(myBall);
  myBall_xVel = random(-4,4);
  myBall_yPos = random(-4,4);
+
+ rect(50,50,paddleSizeWidth,paddleSizHeight);
 }
 
 function draw() {
  background(color(r, g, b));
+ rect(50,50,100,100);
  moveAndBounce();
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
@@ -51,3 +57,8 @@ function switchTheColor(){
  g = random(255);
  b = random(255);
 }
+
+
+
+
+
