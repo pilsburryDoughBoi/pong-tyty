@@ -1,6 +1,6 @@
 var canvasWidth = 500, canvasHeight = 400;
 var myBall;
-var ballSize = 20;
+var ballSize = 10;
 console.log(ballSize)
 var myBall_xPos = canvasWidth/2, myBall_yPos = canvasHeight/2;
 var myBall_xVel = 1, myBall_yVel = 1;
@@ -8,8 +8,8 @@ var myBall_top = myBall_yPos - ballSize/2,
     myBall_bottom = myBall_yPos + ballSize/2, 
     myBall_left = myBall_xPos - ballSize/2,
     myBall_right = myBall_xPos + ballSize/2;
+var paddleWidth = 9, paddleHeight = 46, paddelVel = 5, paddleL_yPos = canvasHeight/2, paddleR_yPos = canvasHeight/2, paddleL_xPos = ballSize, paddleR_xPos = canvasWidth-ballSize ;    
 
-var paddleSizeWidth = 9, paddleSizHeight = 16    
 var r = 0, g = 0, b = 0;
 
 
@@ -22,13 +22,15 @@ function setup() {
  myBall_xVel = random(-4,4);
  myBall_yPos = random(-4,4);
 
- rect(50,50,paddleSizeWidth,paddleSizHeight);
+ rect(50, canvasHeight/2, paddleWidth, paddleHeight);
 }
 
 function draw() {
  background(color(r, g, b));
- rect(50,50,100,100);
+ rect(paddleL_xPos, paddleL_yPos, paddleWidth, paddleHeight);
+ rect(paddleR_xPos, paddleR_yPos, paddleWidth, paddleHeight);
  moveAndBounce();
+ keyPressed();
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
 }
@@ -58,7 +60,32 @@ function switchTheColor(){
  b = random(255);
 }
 
-
+function keyPressed(){
+   // Update Values
+  // If the up arrow is pressed, 
+  // move the paddle right on the screen
+if (key === "p") {
+ paddleR_yPos = paddleR_yPos - 5;
+}
+  // Update Values
+  // If down arrow is pressed, 
+  // move the paddle left on the screen
+if (key === "l") {
+  paddleR_yPos = paddleR_yPos + 5;
+}
+  // Update Values
+  // If w is pressed, 
+  // move the paddle up on the screen
+if (key === "w") {
+   paddleL_yPos = paddleL_yPos - 5;
+}
+  // Update Values
+  // If s is pressed, 
+  // move the paddle down on the screen
+if (key === "s") {
+  paddleL_yPos = paddleL_yPos + 5;
+}
+}
 
 
 
