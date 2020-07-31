@@ -8,7 +8,7 @@ var myBall_top = myBall_yPos - ballSize/2,
     myBall_bottom = myBall_yPos + ballSize/2, 
     myBall_left = myBall_xPos - ballSize/2,
     myBall_right = myBall_xPos + ballSize/2;
-var paddleWidth = 9, paddleHeight = 46, paddelVel = 5, paddleL_yPos = canvasHeight/2, paddleR_yPos = canvasHeight/2, paddleL_xPos = ballSize, paddleR_xPos = canvasWidth-ballSize ;    
+var paddleWidth = 9, paddleHeight = 46, paddelVel = 5, paddleL_yPos = canvasHeight/2, paddleR_yPos = canvasHeight/2, paddleL_xPos = ballSize, paddleR_xPos = canvasWidth-ballSize, paddle_top = paddleL_yPos - paddleHeight/2, paddle_bottom = paddleL_yPos + paddleHeight/2, paddle_top = paddleR_yPos - paddleHeight/2, paddle_bottom = paddleR_yPos + paddleHeight/2;    
 
 var r = 0, g = 0, b = 0;
 
@@ -30,7 +30,8 @@ function draw() {
  rect(paddleL_xPos, paddleL_yPos, paddleWidth, paddleHeight);
  rect(paddleR_xPos, paddleR_yPos, paddleWidth, paddleHeight);
  moveAndBounce();
- keyPressed();
+ paddleControl();
+ score();
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
 }
@@ -60,32 +61,42 @@ function switchTheColor(){
  b = random(255);
 }
 
-function keyPressed(){
+function paddleControl(){
+  paddleL_top = paddleL_yPos - paddleHeight/2; paddleL_bottom = paddleL_yPos + paddleHeight/2; paddleR_top = paddleR_yPos - paddleHeight/2; paddleR_bottom = paddleR_yPos + paddleHeight/2;    
    // Update Values
-  // If the up arrow is pressed, 
-  // move the paddle right on the screen
-if (key === "p") {
+  // If the p is pressed, 
+  // move the paddle up on the screen
+if (key === "p" )&& (paddleL_top > 0) {
  paddleR_yPos = paddleR_yPos - 5;
-}
+ }
   // Update Values
-  // If down arrow is pressed, 
-  // move the paddle left on the screen
-if (key === "l") {
+  // If l is pressed, 
+  // move the paddle down on the screen
+if (key === "l") && (paddleL_bottom < canvasHeight) {
   paddleR_yPos = paddleR_yPos + 5;
-}
+ }
   // Update Values
   // If w is pressed, 
   // move the paddle up on the screen
-if (key === "w") {
+if (key === "w") && (paddleR_top > 0) {
    paddleL_yPos = paddleL_yPos - 5;
-}
+ }
   // Update Values
   // If s is pressed, 
   // move the paddle down on the screen
-if (key === "s") {
+if (key === "s") && (paddleR_bottom < canvasHeight){
   paddleL_yPos = paddleL_yPos + 5;
-}
+ }
 }
 
-
+function collision(){
+if (myBall_yPos === paddleR_yPos || myBall_yPos === paddleL_yPos){
+  myBall_yVel = -myBall_yVel;
+ }
+}
+function score(){
+  text("score");
+  fill(65);
+  
+}
 
