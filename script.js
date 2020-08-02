@@ -85,6 +85,7 @@ if (myBall.isTouching(canvasHeight)) {
   }
    if (myBall.isTouching(paddle)) {
     score = score + 1;
+    myBall.rotation -= 10;
   }
 }
 
