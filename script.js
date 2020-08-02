@@ -7,9 +7,10 @@ var myBall_xVel = 1, myBall_yVel = 1;
 var myBall_top = myBall_yPos - ballSize/2,
     myBall_bottom = myBall_yPos + ballSize/2, 
     myBall_left = myBall_xPos - ballSize/2,
-    myBall_right = myBall_xPos + ballSize/2;
-var paddleWidth = 9, paddleHeight = 46, paddelVel = 5, paddleL_yPos = canvasHeight/2, paddleR_yPos = canvasHeight/2, paddleL_xPos = ballSize, paddleR_xPos = canvasWidth-ballSize, paddle_top = paddleL_yPos - paddleHeight/2, paddle_bottom = paddleL_yPos + paddleHeight/2, paddle_top = paddleR_yPos - paddleHeight/2, paddle_bottom = paddleR_yPos + paddleHeight/2;    
-
+    myBall_right = myBall_xPos + ballSize/2,
+    myBall.setCollider("rectangle", myBall_xPos, myBall_yPos, myBall_top, myBall_bottom);
+var paddleWidth = 9, paddleHeight = 46, paddleVel = 5, paddleL_yPos = canvasHeight/2, paddleR_yPos = canvasHeight/2, paddleL_xPos = ballSize, paddleR_xPos = canvasWidth-ballSize, paddle_top = paddleL_yPos - paddleHeight/2, paddle_bottom = paddleL_yPos + paddleHeight/2, paddle_top = paddleR_yPos - paddleHeight/2, paddle_bottom = paddleR_yPos + paddleHeight/2;    
+var score = 0;
 var r = 0, g = 0, b = 0;
 
 
@@ -31,7 +32,8 @@ function draw() {
  rect(paddleR_xPos, paddleR_yPos, paddleWidth, paddleHeight);
  moveAndBounce();
  paddleControl();
- score();
+ collision();
+ showScore();
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
 }
@@ -62,40 +64,33 @@ function switchTheColor(){
 }
 
 function paddleControl(){
-  paddleL_top = paddleL_yPos - paddleHeight/2; paddleL_bottom = paddleL_yPos + paddleHeight/2; paddleR_top = paddleR_yPos - paddleHeight/2; paddleR_bottom = paddleR_yPos + paddleHeight/2;    
+  paddleL_top    = paddleL_yPos - paddleHeight/2; paddleL_bottom = paddleL_yPos + paddleHeight/2; paddleR_top    = paddleR_yPos - paddleHeight/2; paddleR_bottom = paddleR_yPos + paddleHeight/2;    
    // Update Values
-  // If the p is pressed, 
-  // move the paddle up on the screen
-if (key === "p" ) && (paddleL_top > 0) {
- paddleR_yPos = paddleR_yPos - 5;
- }
-  // Update Values
-  // If l is pressed, 
-  // move the paddle down on the screen
-if (key === "l") && (paddleL_bottom < canvasHeight) {
-  paddleR_yPos = paddleR_yPos + 5;
- }
-  // Update Values
-  // If w is pressed, 
-  // move the paddle up on the screen
-if (key === "w") && (paddleR_top > 0) {
-   paddleL_yPos = paddleL_yPos - 5;
- }
-  // Update Values
-  // If s is pressed, 
-  // move the paddle down on the screen
-if (key === "s") && (paddleR_bottom < canvasHeight){
-  paddleL_yPos = paddleL_yPos + 5;
- }
+  // If the value is pressed, move the paddle up on the screen
+ if (keyIsDown(87) && (paddleL_top > 0)) {
+		paddleL_yPos -= paddleVel;
+	} else if (keyIsDown(83) && (paddleL_bottom < canvasHeight)) {
+		paddleL_yPos += paddleVel;
+	}
+	if (keyIsDown(80) && (paddleR_top > 0)) {
+		paddleR_yPos -= paddleVel;
+	} else if (keyIsDown(76) && (paddleR_bottom < canvasHeight)) {
+		paddleR_yPos += paddleVel;
+	}
 }
 
 function collision(){
-if (myBall_yPos === paddleR_yPos || myBall_yPos === paddleL_yPos){
-  myBall_yVel = -myBall_yVel;
- }
-}
-function score(){
-  text("score");
-  fill(65);
+if (myBall.isTouching(canvasHeight)) {
+    score= score - 1;
+  }
+   if (myBall.isTouching(paddle)) {
+    score = score + 1;
+  }
 }
 
+function showScore() {
+  fill("yellow");
+  textSize(20);
+  text("Score:",20,20,200,100);
+  text(score,20,40,200,100);
+}
