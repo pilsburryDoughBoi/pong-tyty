@@ -15,7 +15,10 @@ var paddleWidth = 9,
     paddleR_yPos = canvasHeight/2, 
     paddleL_xPos = ballSize,
     paddleR_xPos = canvasWidth-ballSize,
-    paddle_top = paddleL_yPos - paddleHeight/2, paddle_bottom = paddleL_yPos + paddleHeight/2, paddle_top = paddleR_yPos - paddleHeight/2, paddle_bottom = paddleR_yPos + paddleHeight/2,
+    paddleL_top = paddleL_yPos - paddleHeight/2,
+	  paddleL_bottom = paddleL_yPos + paddleHeight/2,
+	  paddleR_top = paddleR_yPos - paddleHeight/2,
+	  paddleR_bottom = paddleR_yPos + paddleHeight/2,
     paddleL_left = paddleL_xPos + paddleWidth/2,
     paddleL_right = paddleL_xPos -  paddleWidth/2,
     paddleR_left= paddleL_xPos + paddleWidth/2,
@@ -32,7 +35,7 @@ function setup() {
   
  //console.log(myBall);
  myBall_xVel = random(-4,4);
- myBall_yPos = random(-4,4);
+ myBall_yVel = random(-4,4);
 
  rect(50, canvasHeight/2, paddleWidth, paddleHeight);
 }
@@ -53,6 +56,7 @@ function moveAndBounce(){
 	myBall_xPos  = myBall_xPos + myBall_xVel;
 	myBall_left  = myBall_xPos - ballSize/2;
 	myBall_right = myBall_xPos + ballSize/2;
+
   // this makes the ball go back and forth horizontal
   if ((myBall_xPos > canvasWidth) || (myBall_xPos < 0)){
     myBall_xVel = -myBall_xVel;
@@ -89,20 +93,21 @@ function paddleControl(){
 }
 
 function collision(){ 
- if((myBall_bottom >= paddleL_top) && (myBall_top <=    paddleL_bottom)){
-  if(myBall_left <=  paddleL_right){
-    myBall_xVel = -myBall_xVel;
-    score = score + 1;
-    switchTheColor();
-  }
- }
- if((myBall_bottom >= paddleR_top) && (myBall_top <= paddleR_bottom)){
-  if(myBall_right >=  paddleR_left){
-    myBall_xVel = -myBall_xVel;
-    score = score + 1;
-    switchTheColor();
-  }
- }
+	if((myBall_bottom >= paddleL_top) && (myBall_top <=    paddleL_bottom)){
+		if(myBall_left <=  paddleL_right){
+    		myBall_xVel = -myBall_xVel;
+    		score = score + 1;
+    		switchTheColor();
+  		}
+ 	}
+
+	if((myBall_bottom >= paddleR_top) && (myBall_top <= paddleR_bottom)){
+		if(myBall_right >=  paddleR_left){
+    		myBall_xVel = -myBall_xVel;
+    		score = score + 1;
+    		switchTheColor();
+  		}
+ 	}
 }
 
 function showScore() {
