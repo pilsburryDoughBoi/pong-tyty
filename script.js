@@ -33,12 +33,9 @@ function setup() {
   background(color(0,0,100));
   rectMode(CENTER);
   myBall = rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
-  
  //console.log(myBall);
  myBall_xVel = random(-4,4);
  myBall_yVel = random(-4,4);
-
- rect(50, canvasHeight/2, paddleWidth, paddleHeight);
 }
 
 function draw() {
@@ -49,6 +46,7 @@ function draw() {
  paddleControl();
  collision();
  showScore();
+ reset();
  // this makes the ball appear
  rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
 }
@@ -78,8 +76,14 @@ function switchTheColor(){
 }
 
 function paddleControl(){
-  paddleL_top    = paddleL_yPos - paddleHeight/2; paddleL_bottom = paddleL_yPos + paddleHeight/2;
-  paddleR_top    = paddleR_yPos - paddleHeight/2; paddleR_bottom = paddleR_yPos + paddleHeight/2;    
+  paddleL_top    = paddleL_yPos - paddleHeight/2;
+	paddleL_bottom = paddleL_yPos + paddleHeight/2;
+	paddleL_left   = paddleL_xPos + paddleWidth/2;
+	paddleL_right  = paddleL_xPos - paddleWidth/2;
+	paddleR_top    = paddleR_yPos - paddleHeight/2;
+	paddleR_bottom = paddleR_yPos + paddleHeight/2;
+	paddleR_left   = paddleR_xPos + paddleWidth/2;
+	paddleR_right  = paddleR_xPos - paddleWidth/2;   
    // Update Values
   // If the value is pressed, move the paddle up on the screen
  if (keyIsDown(87) && (paddleL_top > 0)) {
@@ -95,12 +99,12 @@ function paddleControl(){
 }
 
 function collision(){ 
-  paddleL_top    = paddleL_yPos - paddleHeight/2; paddleL_bottom = paddleL_yPos + paddleHeight/2;
-  paddleR_top    = paddleR_yPos - paddleHeight/2; paddleR_bottom = paddleR_yPos + paddleHeight/2; 
+  paddleL_top    = paddleL_yPos - paddleHeight/2; paddleL_bottom = paddleL_yPos + paddleHeight/2; 
   paddleL_left   = paddleL_xPos + paddleWidth/2;
   paddleL_right  = paddleL_xPos - paddleWidth/2;
-  paddleR_left   = paddleL_xPos + paddleWidth/2;
-  paddleR_right  = paddleL_xPos - paddleWidth/2;
+  paddleR_left   = paddleR_xPos + paddleWidth/2;
+  paddleR_right  = paddleR_xPos - paddleWidth/2;
+  paddleR_top    = paddleR_yPos - paddleHeight/2; paddleR_bottom = paddleR_yPos + paddleHeight/2;
 
 	if((myBall_bottom >= paddleL_top) && (myBall_top <=    paddleL_bottom)){
 		if(myBall_left <=  paddleL_right){
@@ -121,10 +125,15 @@ function collision(){
 function showScore() {
   fill("yellow");
   textSize(20);
-  text("Score:",20,20);
-  text(score,20,40);
-  fill("yellow");
-  textSize(20);
-  text("Score:",20,20);
-  text(score,40,70);
+  text("Score1:",150,20);
+  text("Score2:",250,20);
+  text(score,150,40);
+  text(score2,250,40);
+}
+
+function reset(){
+  if(score == 10 || score2 == 10){
+    score  =+ 0;
+    score2 =+ 0;
+  }
 }
