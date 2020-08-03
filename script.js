@@ -15,7 +15,11 @@ var paddleWidth = 9,
     paddleR_yPos = canvasHeight/2, 
     paddleL_xPos = ballSize,
     paddleR_xPos = canvasWidth-ballSize,
-    paddle_top = paddleL_yPos - paddleHeight/2, paddle_bottom = paddleL_yPos + paddleHeight/2, paddle_top = paddleR_yPos - paddleHeight/2, paddle_bottom = paddleR_yPos + paddleHeight/2;    
+    paddle_top = paddleL_yPos - paddleHeight/2, paddle_bottom = paddleL_yPos + paddleHeight/2, paddle_top = paddleR_yPos - paddleHeight/2, paddle_bottom = paddleR_yPos + paddleHeight/2,
+    paddleL_left = paddleL_xPos + paddleWidth/2,
+    paddleL_right = paddleL_xPos -  paddleWidth/2,
+    paddleR_left= paddleL_xPos + paddleWidth/2,
+    paddleR_right = paddleL_xPos -  paddleWidth/2;    
 var score = 0;
 var r = 0, g = 0, b = 0;
 
@@ -84,23 +88,26 @@ function paddleControl(){
 	}
 }
 
-function collision(){
-  if (myBall > paddleL_yPos - paddleWidth && 
-      myBall < paddleL_yPos + paddleWidth && 
-      myBall > paddleR_yPos - paddleWidth &&
-      myBall < paddleR_yPos) {
+function collision(){ 
+ if((myBall_bottom >= paddleL_top) && (myBall_top <=    paddleL_bottom)){
+  if(myBall_left <=  paddleL_right){
     myBall_xVel = -myBall_xVel;
-   }
-  if (myBall.isTouching(paddleL_yPos|| paddleR_yPos)) {
     score = score + 1;
-    myBall.rotation -= 10;
     switchTheColor();
   }
+ }
+ if((myBall_bottom >= paddleR_top) && (myBall_top <= paddleR_bottom)){
+  if(myBall_right >=  paddleR_left){
+    myBall_xVel = -myBall_xVel;
+    score = score + 1;
+    switchTheColor();
+  }
+ }
 }
 
 function showScore() {
   fill("yellow");
   textSize(20);
-  text("Score:",20,20,200,100);
-  text(score,20,40,200,100);
+  text("Score:",20,20);
+  text(score,20,40);
 }
