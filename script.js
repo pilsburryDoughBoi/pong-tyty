@@ -61,6 +61,7 @@ function moveAndBounce(){
     myBall_xpos = canvasHeight/2;
     myBall_ys   = canvasHeight/2;
     myBall_yVel = random(speeds);
+    updateScore();
 	}
 	myBall_yPos   = myBall_yPos + myBall_yVel;
 	myBall_top    = myBall_yPos - ballSize/2;
@@ -111,14 +112,14 @@ function collision(){
 	if((myBall_bottom >= paddleL_top) && (myBall_top <=    paddleL_bottom)){
 		if(myBall_left <=  paddleL_right){
     		myBall_xVel = -myBall_xVel;
-    		score = score + 1;
+    		
     		switchTheColor();
   		}
  	}
 	if((myBall_bottom >= paddleR_top) && (myBall_top <= paddleR_bottom)){
 		if(myBall_right >=  paddleR_left){
     		myBall_xVel = -myBall_xVel;
-    		score2 = score2 + 1;
+    		
     		switchTheColor();
   		}
  	}
@@ -132,6 +133,15 @@ function showScore() {
   text(score,150,40);
   text(score2,250,40);
 }
+
+ function updateScore(){
+if (myBall_right >= canvasWidth) {
+  score = score + 1; 
+} 
+if (myBall_left <= 0){
+	score2 = score2 + 1;
+}
+ }
 
 function reset(){
   if(score == 10 || score2 == 10){
