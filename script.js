@@ -9,33 +9,34 @@ var myBall_xPos   = canvasWidth/2,
     myBall_left   = myBall_xPos - ballSize/2,
     myBall_right  = myBall_xPos + ballSize/2;
 var paddleWidth  = 9, 
-    paddleHeight = 46, 
+    paddleHeight = canvasHeight/6, 
     paddleVel    = 5, 
-    paddleL_yPos   = canvasHeight/2, 
-    paddleR_yPos   = canvasHeight/2, 
-    paddleL_xPos   = ballSize,
+	  paddleL_xPos = ballSize,
+    paddleR_xPos = canvasWidth - ballSize,
+	  paddleL_yPos = canvasHeight / 2, 
+    paddleR_yPos = canvasHeight / 2,
     paddleL_top    = paddleL_yPos - paddleHeight/2,
 	  paddleL_bottom = paddleL_yPos + paddleHeight/2,
-    paddleL_left   = paddleL_xPos + paddleWidth/2,
-    paddleL_right  = paddleL_xPos -  paddleWidth/2,
-    paddleR_xPos   = canvasWidth-ballSize,
+	  paddleL_left   = paddleL_xPos + paddleWidth/2,
+	  paddleL_right  = paddleL_xPos - paddleWidth/2,
 	  paddleR_top    = paddleR_yPos - paddleHeight/2,
 	  paddleR_bottom = paddleR_yPos + paddleHeight/2,
-    paddleR_left   = paddleL_xPos + paddleWidth/2,
-    paddleR_right  = paddleL_xPos -  paddleWidth/2;    
+	  paddleR_left   = paddleR_xPos + paddleWidth/2,
+	  paddleR_right  = paddleR_xPos - paddleWidth/2;    
 var score  = 0;
 var score2 = 0;
 var r = 0, g = 0, b = 0;
-
+var speeds = [ -3, -2, 3, 4, 5]
 
 function setup() {
+  frameRate(20);
 	createCanvas(canvasWidth, canvasHeight);
   background(color(0,0,100));
   rectMode(CENTER);
   myBall = rect(myBall_xPos, myBall_yPos, ballSize, ballSize);
  //console.log(myBall);
- myBall_xVel = random(-4,4);
- myBall_yVel = random(-4,4);
+ myBall_xVel = random(speeds);
+ myBall_yVel = random(speeds);
 }
 
 function draw() {
@@ -55,18 +56,19 @@ function moveAndBounce(){
 	myBall_xPos  = myBall_xPos + myBall_xVel;
 	myBall_left  = myBall_xPos - ballSize/2;
 	myBall_right = myBall_xPos + ballSize/2;
+	if ( (myBall_right > canvasWidth) || (myBall_left < 0) ) {
+		myBall_xVel = -myBall_xVel;
+    myBall_xpos = canvasHeight/2;
+    myBall_ys   = canvasHeight/2;
+    myBall_yVel = random(speeds);
+	}
+	myBall_yPos   = myBall_yPos + myBall_yVel;
+	myBall_top    = myBall_yPos - ballSize/2;
+	myBall_bottom = myBall_yPos + ballSize/2;
+	if ( (myBall_bottom > canvasHeight) || (myBall_top < 0) ) {
+		myBall_yVel = -myBall_yVel;
 
-  // this makes the ball go back and forth horizontal
-  if ((myBall_xPos > canvasWidth) || (myBall_xPos < 0)){
-    myBall_xVel = -myBall_xVel;
-  }
-	myBall_yPos  = myBall_yPos + myBall_yVel;
-	myBall_left  = myBall_yPos - ballSize/2;
-	myBall_right = myBall_yPos + ballSize/2;
- // this makes the ball go back and forth vertical
-  if ((myBall_yPos > canvasHeight) || (myBall_yPos < 0)){
-    myBall_yVel = -myBall_yVel;
-  }
+	}
 }
 
 function switchTheColor(){
