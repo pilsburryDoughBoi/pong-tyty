@@ -3,7 +3,9 @@ var myBall;
 var ballSize = 10;
 console.log(ballSize)
 var myBall_xPos   = canvasWidth/2, 
-    myBall_yPos   = canvasHeight/2, myBall_xVel = 1, myBall_yVel   = 1,  
+    myBall_yPos   = canvasHeight/2, 
+    myBall_xVel   = 1, 
+    myBall_yVel   = 1,  
     myBall_top    = myBall_yPos - ballSize/2,
     myBall_bottom = myBall_yPos + ballSize/2, 
     myBall_left   = myBall_xPos - ballSize/2,
@@ -37,10 +39,16 @@ function setup() {
  //console.log(myBall);
  myBall_xVel = random(speeds);
  myBall_yVel = random(speeds);
+  // Load the sound file.
+  // We have included both an MP3 and an OGG version.
+ // soundFormats('mp3', 'ogg');
+  //dingdong = loadSound('');
+  bg= loadImage("https://vignette.wikia.nocookie.net/dragonball/images/a/a0/Trunks_vs_Goten.png/revision/latest?cb=20150905181628&path-prefix=it")
 }
 
 function draw() {
  background(color(r, g, b));
+
  rect(paddleL_xPos, paddleL_yPos, paddleWidth, paddleHeight);
  rect(paddleR_xPos, paddleR_yPos, paddleWidth, paddleHeight);
  moveAndBounce();
@@ -112,14 +120,14 @@ function collision(){
 	if((myBall_bottom >= paddleL_top) && (myBall_top <=    paddleL_bottom)){
 		if(myBall_left <=  paddleL_right){
     		myBall_xVel = -myBall_xVel;
-    		
+    		bg();
     		switchTheColor();
   		}
  	}
 	if((myBall_bottom >= paddleR_top) && (myBall_top <= paddleR_bottom)){
 		if(myBall_right >=  paddleR_left){
     		myBall_xVel = -myBall_xVel;
-    		
+    		bg();
     		switchTheColor();
   		}
  	}
@@ -149,3 +157,4 @@ function reset(){
     score2 =+ 0;
   }
 }
+
